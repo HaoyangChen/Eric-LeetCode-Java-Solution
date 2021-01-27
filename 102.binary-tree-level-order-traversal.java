@@ -20,22 +20,47 @@
  *     }
  * }
  */
+// class Solution {
+//     public List<List<Integer>> levelOrder(TreeNode root) {
+//         List<List<Integer>> result = new ArrayList<List<Integer>>();
+//         if (root == null) return result;
+//         Queue<TreeNode> queue = new LinkedList<TreeNode>();
+//         queue.offer(root);
+//         while (!queue.isEmpty()) {
+//             List<Integer> level = new ArrayList<Integer>();
+//             int currentLevelSize = queue.size();
+//             for (int i = 1; i <= currentLevelSize; ++i) {
+//                 TreeNode node = queue.poll();
+//                 level.add(node.val);
+//                 if (node.left != null) {
+//                     queue.offer(node.left);
+//                 }
+//                 if (node.right != null) {
+//                     queue.offer(node.right);
+//                 }
+//             }
+//             result.add(level);
+//         }
+//         return result;
+//     }
+// }
+
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         if (root == null) return result;
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-            List<Integer> level = new ArrayList<Integer>();
-            int currentLevelSize = queue.size();
-            for (int i = 1; i <= currentLevelSize; ++i) {
+            int size = queue.size();
+            List<Integer> level = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 level.add(node.val);
                 if (node.left != null) {
                     queue.offer(node.left);
                 }
-                if (node.right != null) {
+                if (node.right != null){
                     queue.offer(node.right);
                 }
             }
@@ -44,5 +69,6 @@ class Solution {
         return result;
     }
 }
+
 // @lc code=end
 
