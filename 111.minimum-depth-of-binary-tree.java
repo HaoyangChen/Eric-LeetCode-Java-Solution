@@ -20,28 +20,54 @@
  *     }
  * }
  */
+// class Solution {
+//     public int minDepth(TreeNode root) {
+//         if (root == null) return 0;
+//         Queue<TreeNode> q = new LinkedList<>();
+//         q.offer(root);
+//         int depth = 1;
+
+//         while (!q.isEmpty()) {
+//             int size = q.size();
+//             for (int i = 0; i < size; i++) {
+//                 TreeNode curr = q.poll();
+//                 if (curr.left == null && curr.right == null) {
+//                     return depth;
+//                 }
+//                 if (curr.left != null) {
+//                     q.offer(curr.left);
+//                 }
+//                 if (curr.right != null) {
+//                     q.offer(curr.right);
+//                 }
+//             }
+//             depth++;
+//         }
+//         return depth;
+//     }
+// }
+
 class Solution {
     public int minDepth(TreeNode root) {
-        if (root == null) return 0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        int depth = 1;
-
-        while (!q.isEmpty()) {
-            int size = q.size();
+        int depth = 0;
+        if (root == null) return depth;
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            depth++;
             for (int i = 0; i < size; i++) {
-                TreeNode curr = q.poll();
-                if (curr.left == null && curr.right == null) {
+                TreeNode node = queue.poll();
+                if (node.left == null && node.right == null) {
                     return depth;
                 }
-                if (curr.left != null) {
-                    q.offer(curr.left);
+                if (node.left != null) {
+                    queue.offer(node.left);
                 }
-                if (curr.right != null) {
-                    q.offer(curr.right);
+                if (node.right != null) {
+                    queue.offer(node.right);
                 }
             }
-            depth++;
         }
         return depth;
     }
