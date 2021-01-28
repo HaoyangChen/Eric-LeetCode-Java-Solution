@@ -23,30 +23,59 @@
 
  // Time Complexity: O(n) - n is the total number of nodes in the binary tree. Each node is visited exactly once, and adding a level of nodes to the linkedlist takes O(1) time. So the overall time complexity is O(n).
  // Space Complexity: O(n) - where n is the total number of nodes in the binary tree. Space complexity depends on the queue, and the number of nodes in the queue is at most n.
+// class Solution {
+//     public List<List<Integer>> levelOrderBottom(TreeNode root) {
+//         List<List<Integer>> levelOrder = new LinkedList<List<Integer>>();
+//         if (root == null) return levelOrder;
+//         Queue<TreeNode> queue = new LinkedList<TreeNode>();
+//         queue.offer(root);
+
+//         while (!queue.isEmpty()) {
+//             List<Integer> level = new ArrayList<Integer>();
+//             int size = queue.size();
+//             for (int i = 0; i < size; i++) {
+//                 TreeNode node = queue.poll();
+//                 level.add(node.val);
+//                 TreeNode left = node.left, right = node.right;
+//                 if (left != null) {
+//                     queue.offer(left);
+//                 }
+//                 if (right != null) {
+//                     queue.offer(right);
+//                 }
+//             }
+//             levelOrder.add(0, level);
+//         }
+//         return levelOrder;
+//     }
+// }
+
+
+// Shangan Solution
 class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> levelOrder = new LinkedList<List<Integer>>();
-        if (root == null) return levelOrder;
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        LinkedList<List<Integer>> result = new LinkedList<>();
+        if (root == null) {
+            return result;
+        }
+        Queue<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
-
         while (!queue.isEmpty()) {
-            List<Integer> level = new ArrayList<Integer>();
             int size = queue.size();
+            List<Integer> level = new ArrayList<>(size);
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 level.add(node.val);
-                TreeNode left = node.left, right = node.right;
-                if (left != null) {
-                    queue.offer(left);
+                if (node.left != null) {
+                    queue.offer(node.left);
                 }
-                if (right != null) {
-                    queue.offer(right);
+                if (node.right != null) {
+                    queue.offer(node.right);
                 }
             }
-            levelOrder.add(0, level);
+            result.addFirst(level);
         }
-        return levelOrder;
+        return result;
     }
 }
 // @lc code=end
