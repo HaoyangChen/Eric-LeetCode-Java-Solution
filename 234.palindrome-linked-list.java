@@ -25,7 +25,7 @@ class Solution {
             fast = fast.next.next;
             slow = slow.next;
         }
-        // This part is a bit tricky -- for list with even number of elements
+        // This part is a bit tricky -- for list with even number of elements  !important
         if (fast != null) {
             slow = slow.next;
         }
