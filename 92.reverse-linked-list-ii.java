@@ -64,7 +64,7 @@ class Solution {
             head = actualNext;
             i++;
         }
-        previousM.next.next = head;
+        previousM.next.next = head; // why?
         previousM.next = previous;
         return dummy.next;
     }
