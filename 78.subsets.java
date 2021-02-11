@@ -23,7 +23,7 @@ class Solution {
             }
             path.add(nums[i]);
             result.add(new ArrayList<>(path));
-            helper(nums, path, result, start + i);
+            helper(nums, path, result, i + 1);
             path.remove(path.size() - 1);
         }
     }
