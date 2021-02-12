@@ -7,6 +7,7 @@
 // @lc code=start
 
 // Shangan Solution
+// Time Complexity: O(2^n) - In the worst case, the algorithm will 
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
@@ -23,6 +24,7 @@ class Solution {
         }
         for (int i = index; i < candidates.length && candidates[i] <= target; i++) {
             if (i > index && candidates[i] == candidates[i - 1]) continue;
+            if (target - candidates[i] < 0) break; // optimization
             path.add(candidates[i]);
             dfs(candidates, target - candidates[i], result, path, i + 1);
             path.remove(path.size() - 1);
