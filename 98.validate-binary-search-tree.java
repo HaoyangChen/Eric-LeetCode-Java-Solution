@@ -64,23 +64,46 @@
 // LeetCode Solution: Recursive Traversal with Valid Range
 // Time Complexity: O(N) - since we visit each node exactly once
 // Space Complexity: O(N) - since we keep up to the entire tree
+// class Solution {
+//     public boolean isValidBST(TreeNode root) {
+//         return validate(root, null, null);
+//     }
+    
+//     private boolean validate(TreeNode root, Integer low, Integer high) {
+//         // empty trees are valid BSTs
+//         if (root == null) {
+//             return true;
+//         }
+        
+//         // The current node's value must be between low and high
+//         if ((low != null && root.val <= low) || (high != null && root.val >= high)) {
+//             return false;
+//         }
+//         // The left and right subtree must also be valid
+//         return validate(root.right, root.val, high) && validate(root.left, low, root.val);
+//     }
+// }
+
+// Method: recursive inorder traversal
 class Solution {
+    private Integer prev;
     public boolean isValidBST(TreeNode root) {
-        return validate(root, null, null);
+        prev = null;
+        return inorder(root);
     }
     
-    private boolean validate(TreeNode root, Integer low, Integer high) {
-        // empty trees are valid BSTs
+    private boolean inorder(TreeNode root) {
         if (root == null) {
             return true;
         }
-        
-        // The current node's value must be between low and high
-        if ((low != null && root.val <= low) || (high != null && root.val >= high)) {
+        if (!inorder(root.left)) {
             return false;
         }
-        // The left and right subtree must also be valid
-        return validate(root.right, root.val, high) && validate(root.left, low, root.val);
+        if (prev != null && root.val <= prev) {
+            return false;
+        }
+        prev = root.val;
+        return inorder(root.right);
     }
 }
 // @lc code=end
