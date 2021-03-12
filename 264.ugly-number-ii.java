@@ -5,6 +5,10 @@
  */
 
 // @lc code=start
+
+// Method 1: Heap
+// Time complexity: O(1) to retrieve preliminary computed ugly number
+// Space complexity: constant space to keep an array of 1690 ugly numbers, the heap of not more than 1690 \times 21690×2 elements and the hashset of not more than 1690×3 elements.
 class Solution {
     public static Ugly u = new Ugly();
     public int nthUglyNumber(int n) {
