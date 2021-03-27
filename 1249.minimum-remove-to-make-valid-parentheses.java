@@ -5,6 +5,8 @@
  */
 
 // @lc code=start
+
+// Method 1: Using a Stack and String Builder
 class Solution {
     public String minRemoveToMakeValid(String s) {
         
