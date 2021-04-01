@@ -28,6 +28,7 @@
 //     }
 // }
 
+// Method 2: Hashmap + DoubleLinkedList
 // Time Complexity: O(1) both for put and get
 // Space Complexity: O(capacity) since the space is used only for a hashmap and double linked list with at most capacity + 1 elements
 class LRUCache {
