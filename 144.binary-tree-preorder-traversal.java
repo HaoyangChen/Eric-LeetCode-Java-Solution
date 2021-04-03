@@ -41,23 +41,50 @@
 //     }
 // }
 
-class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<Integer>();
-        if (root == null) return res;
+// Method 2: Iteration
+// class Solution {
+//     public List<Integer> preorderTraversal(TreeNode root) {
+//         List<Integer> res = new ArrayList<Integer>();
+//         if (root == null) return res;
 
-        Deque<TreeNode> stack = new LinkedList<TreeNode>();
-        TreeNode node = root;
-        while (!stack.isEmpty() || node != null) {
-            while (node != null) {
-                res.add(node.val);
-                stack.push(node);
-                node = node.left;
-            }
-            node = stack.pop();
-            node = node.right;
+//         Deque<TreeNode> stack = new LinkedList<TreeNode>();
+//         TreeNode node = root;
+//         while (!stack.isEmpty() || node != null) {
+//             while (node != null) {
+//                 res.add(node.val);
+//                 stack.push(node);
+//                 node = node.left;
+//             }
+//             node = stack.pop();
+//             node = node.right;
+//         }
+//         return res;
+//     }
+// }
+
+// Method 3: Iterations
+// Time Complexity: O(N) - we visit each node exactly once, thus the time complexity is O(N), where N is the number of nodes (the size of the tree)
+// Space Complexity: O(N) - depending on the tree structure, we could keep up to the entire tree.
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root){
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        LinkedList<Integer> output = new LinkedList<>();
+        if (root == null) {
+            return output;
         }
-        return res;
+
+        stack.add(root);
+        while (!stack.isEmpty()){
+            TreeNode node = stack.pollLast();
+            output.add(node.val);
+            if (node.right != null) {
+                stack.add(node.right);
+            }
+            if (node.left != null) {
+                stack.add(node.left);
+            }
+        }   
+        return output;
     }
 }
 
