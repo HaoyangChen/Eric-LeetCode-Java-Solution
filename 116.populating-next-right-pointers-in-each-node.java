@@ -46,28 +46,54 @@ class Node {
 //     }
 // }
 
+// Method 1: Level Order Traversal
 // Time Complexity: O(N) since we traverse each node exactly once
 // Space Complexity: O(N) This is a perfect binary tree which means that the last level contains N/2 nodes. The space complexity for breadth first traversal is the space occupied by the queue which is dependent upon the maximum number of nodes in particular level. 
+// class Solution {
+//     public Node connect(Node root) {
+//         if (root == null) return root;
+//         Queue<Node> queue = new LinkedList<Node>();
+//         queue.add(root);
+        
+//         while (!queue.isEmpty()) {
+//             int size = queue.size();
+            
+//             for (int i = 0; i < size; i++) {
+//                 Node node = queue.poll();
+//                 if (i < size - 1) {
+//                     node.next = queue.peek();
+//                 }
+//                 if (node.left != null) queue.add(node.left);
+//                 if (node.right != null) queue.add(node.right);
+//             }
+//         }
+//         return root;
+//     }
+// }
+
+// Method 2: Using previously established next pointers
+// Time Complexity: O(N) since we process each node exactly once.
+// Space Complexity: O(1) since we don't make use of any additional data structure for traversing nodes on a particular level like the previous approach does.
 class Solution {
     public Node connect(Node root) {
         if (root == null) return root;
-        Queue<Node> queue = new LinkedList<Node>();
-        queue.add(root);
-        
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            
-            for (int i = 0; i < size; i++) {
-                Node node = queue.poll();
-                if (i < size - 1) {
-                    node.next = queue.peek();
+        Node leftmost = root;
+        while (leftmost.left != null) {
+            Node head = leftmost;
+            while (head != null) {
+                // connection 1
+                head.left.next = head.right;
+                // connection 2
+                if (head.next != null) {
+                    head.right.next = head.next.left;
                 }
-                if (node.left != null) queue.add(node.left);
-                if (node.right != null) queue.add(node.right);
+                head = head.next;
             }
+            leftmost = leftmost.left;
         }
         return root;
     }
 }
+
 // @lc code=end
 
