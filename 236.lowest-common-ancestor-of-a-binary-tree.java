@@ -63,6 +63,8 @@
 
 
 // Method 2: Iterative using parent pointers
+// Time Complexity: O(N), where N is the number of nodes in the binary tree. In the worst case, we might be visiting all the nodes of the binary tree
+// Space Complexity: O(N). In the worst case space utilized by the stack, the parent pointer dictionary and the ancestor set, would be N each, since the height of a skewed binary tree could be N.
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         Deque<TreeNode> stack = new ArrayDeque<>();
@@ -81,6 +83,13 @@ class Solution {
                 stack.push(node.right);
             }
         }
+        Set<TreeNode> ancestor = new HashSet<>();
+        while (p != null) {
+            ancestor.add(p);
+            p = parent.get(p);
+        }
+        while (!ancestor.contains(q)) q = parent.get(q);
+        return q;
     }
 }
 // @lc code=end
