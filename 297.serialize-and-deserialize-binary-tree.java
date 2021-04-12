@@ -14,6 +14,8 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+ // Method 1
 public class Codec {
     private String SEP = ",";
     private String NULL = "#";
