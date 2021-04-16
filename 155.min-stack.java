@@ -50,20 +50,20 @@ class MinStack {
     public MinStack() { }
     
     
-    public void push(int x) {
+    public void push(int val) {
         
         // We always put the number onto the main stack.
-        stack.push(x);
+        stack.push(val);
         
         // If the min stack is empty, or this number is smaller than
         // the top of the min stack, put it on with a count of 1.
-        if (minStack.isEmpty() || x < minStack.peek()[0]) {
-            minStack.push(new int[]{x, 1});
+        if (minStack.isEmpty() || val < minStack.peek()[0]) {
+            minStack.push(new int[]{val, 1});
         }
         
         // Else if this number is equal to what's currently at the top
         // of the min stack, then increment the count at the top by 1.
-        else if (x == minStack.peek()[0]) {
+        else if (val == minStack.peek()[0]) {
             minStack.peek()[1]++;
         }
     }
