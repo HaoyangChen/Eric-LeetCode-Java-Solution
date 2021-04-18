@@ -51,6 +51,8 @@
 
 
 // Method 2: Evaluate with Stack
+// Time Complexity: O(n)
+// Space Complexity: O(n)
 class Solution {
     public int evalRPN(String[] tokens) {
         Stack<Integer> stack = new Stack<>();
