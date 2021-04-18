@@ -26,6 +26,7 @@
 //     }
 // }
 
+// Method2: Stack
 // Time Complexity: O(N), where N is the length of T and W is the number of allowed values for T[i]. Ech index gets pushed and popped at most once from the stack
 // Space Complexity: O(W). The size of the stack is bounded as it represents strictly increasing temperature
 class Solution {
