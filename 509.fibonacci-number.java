@@ -25,22 +25,39 @@
 //     }
 // }
 
-// Bottom-Up Approach using Memorization
+// Method 2: Bottom-Up Approach using Memorization
 // Time Complexity: O(N) Each number, starting at 2 up to and including N, is visited, computed and then stored for O(1)
 // Space Complexity: O(N) The size of the data structure is proportionate to N
+// class Solution {
+//     public int fib(int N) {
+//         if (N <= 1) return N;
+//         return memorize(N);
+//     }
+
+//     public int memorize(int N) {
+//         int[] cache = new int[N + 1];
+//         cache[1] = 1;
+//         for (int i = 2; i <= N; i++) {
+//             cache[i] = cache[i - 1] + cache[i - 2];
+//         }
+//         return cache[N];
+//     }
+// }
+
+// Method 3: Top-Down Approach using Memorization
 class Solution {
+    private Integer[] cache = new Integer[31];
     public int fib(int N) {
         if (N <= 1) return N;
+        cache[0] = 0;
+        cache[1] = 1;
         return memorize(N);
     }
 
     public int memorize(int N) {
-        int[] cache = new int[N + 1];
-        cache[1] = 1;
-        for (int i = 2; i <= N; i++) {
-            cache[i] = cache[i - 1] + cache[i - 2];
-        }
-        return cache[N];
+        if (cache[N] != null) return cache[N];
+        cache[N] = memorize(N - 1) + memorize(N - 2);
+        return memorize(N);
     }
 }
 
