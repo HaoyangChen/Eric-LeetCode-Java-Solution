@@ -45,6 +45,8 @@
 // }
 
 // Method 3: Top-Down Approach using Memorization
+// Time Complexity: O(N) Each number, starting at 2 up to and including N, is visited, computed and then stored for O(1) access later on
+// Space Complexity: O(N) The size of the stack in memory is proportionate to N
 class Solution {
     private Integer[] cache = new Integer[31];
     public int fib(int N) {
