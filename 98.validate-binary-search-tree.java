@@ -62,6 +62,7 @@
 
 
 // LeetCode Solution: Recursive Traversal with Valid Range
+// Top Down DFS Approach
 // Time Complexity: O(N) - since we visit each node exactly once
 // Space Complexity: O(N) - since we keep up to the entire tree
 // class Solution {
@@ -85,26 +86,26 @@
 // }
 
 // Method: recursive inorder traversal
-class Solution {
-    private Integer prev;
-    public boolean isValidBST(TreeNode root) {
-        prev = null;
-        return inorder(root);
-    }
+// class Solution {
+//     private Integer prev;
+//     public boolean isValidBST(TreeNode root) {
+//         prev = null;
+//         return inorder(root);
+//     }
     
-    private boolean inorder(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        if (!inorder(root.left)) {
-            return false;
-        }
-        if (prev != null && root.val <= prev) {
-            return false;
-        }
-        prev = root.val;
-        return inorder(root.right);
-    }
-}
+//     private boolean inorder(TreeNode root) {
+//         if (root == null) {
+//             return true;
+//         }
+//         if (!inorder(root.left)) {
+//             return false;
+//         }
+//         if (prev != null && root.val <= prev) {
+//             return false;
+//         }
+//         prev = root.val;
+//         return inorder(root.right);
+//     }
+// }
 // @lc code=end
 
