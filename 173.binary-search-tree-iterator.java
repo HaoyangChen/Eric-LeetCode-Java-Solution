@@ -53,6 +53,7 @@
 
 // Method 2: Controlled Recursion
 // Time Complexity:  amortized (average) time complexity for this function would be O(1)
+// Space Complexity: O(N) where N is the number of nodes in the tree, which is occupied by custom stack for simulating the inorder traversal
 class BSTIterator {
     Stack<TreeNode> stack;
     public BSTIterator(TreeNode root) {

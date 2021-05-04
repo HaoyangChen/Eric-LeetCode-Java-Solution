@@ -53,37 +53,68 @@
 // }
 
 
-// shangan solution
+// shangan
+// class Solution {
+//     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+//         List<List<Integer>> result = new ArrayList<>();
+//         Queue<TreeNode> queue = new LinkedList<>();
+//         boolean leftToRight = false;
+//         queue.offer(root);
+
+//         while (!queue.isEmpty()) {
+//             int size = queue.size();
+//             LinkedList<Integer> level = new LinkedList<>();
+//             for (int i = 0; i < size; i++) {
+//                 TreeNode node = queue.poll();
+//                 if (node == null) {
+//                     continue;
+//                 }
+//                 if (leftToRight) {
+//                     level.addFirst(node.val);
+//                 } else {
+//                     level.add(node.val);
+//                 }
+//                 queue.offer(node.left);
+//                 queue.offer(node.right);
+//             }
+//             if (!level.isEmpty()) {
+//                 result.add(level);
+//             }
+//             leftToRight = !leftToRight;
+//         }
+//         return result;
+//     }
+// }
+
+// Method 2: DFS (Depth-First Search)
+// Time Complexity: O(N) where N is the number of nodes in the tree
+// Space Complexity: O(H) where H is the height of the tree, which would roughly be log2(N)
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        boolean leftToRight = false;
-        queue.offer(root);
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            LinkedList<Integer> level = new LinkedList<>();
-            for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll();
-                if (node == null) {
-                    continue;
-                }
-                if (leftToRight) {
-                    level.addFirst(node.val);
-                } else {
-                    level.add(node.val);
-                }
-                queue.offer(node.left);
-                queue.offer(node.right);
-            }
-            if (!level.isEmpty()) {
-                result.add(level);
-            }
-            leftToRight = !leftToRight;
+        if (root == null) {
+            return new ArrayList<List<Integer>>();
         }
-        return result;
+        List<List<Integer>> results = new ArrayList<List<Integer>>();
+        dfs(results, 0, root);
+        return results;
+    }
+
+    private void dfs(List<List<Integer>> results, int level, TreeNode node) {
+        if (level >= results.size()) {
+            LinkedList<Integer> newLevel = new LinkedList<Integer>();
+            newLevel.add(node.val);
+            results.add(newLevel);
+        } else {
+            if (level % 2 == 0) {
+                results.get(level).add(node.val);
+            } else {
+                results.get(level).add(0, node.val);
+            }
+        }
+        if (node.left != null) dfs(results, level + 1, node.left);
+        if (node.right != null) dfs(results, level + 1, node.right);
     }
 }
+
 // @lc code=end
 
