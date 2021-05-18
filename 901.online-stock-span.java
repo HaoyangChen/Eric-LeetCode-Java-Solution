@@ -11,19 +11,40 @@
 
 // One price will be pushed once and popped once.
 // So 2 * N times stack operations and N times calls.
+// class StockSpanner {
+//     Stack<int[]> stack = new Stack<>();
+
+//     public StockSpanner() {
+//     }
+    
+//     public int next(int price) {
+//         int res = 1;
+//         while (!stack.isEmpty() && stack.peek()[0] <= price) {
+//             res += stack.pop()[1];
+//         }
+//         stack.push(new int[]{price, res});
+//         return res;
+//     }
+// }
+
 class StockSpanner {
-    Stack<int[]> stack = new Stack<>();
+    Stack<Integer> prices, weights;
 
     public StockSpanner() {
+        prices = new Stack();
+        weights = new Stack();
     }
-    
+
     public int next(int price) {
-        int res = 1;
-        while (!stack.isEmpty() && stack.peek()[0] <= price) {
-            res += stack.pop()[1];
+        int w = 1;
+        while (!prices.isEmpty() && prices.peek() <= price) {
+            prices.pop();
+            w += weights.pop();
         }
-        stack.push(new int[]{price, res});
-        return res;
+
+        prices.push(price);
+        weights.push(w);
+        return w;
     }
 }
 
