@@ -31,6 +31,8 @@
 
 
 // Method2: Using 2 Pointers
+// Time Complexity: O(n) single iteration of O(n)
+// Space Complexity: O(1) extra space. Only constant space required for left, right, leftMax, and rightMax
 class Solution {
     public int trap(int[] height) {
         int ans = 0;
