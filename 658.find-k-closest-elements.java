@@ -50,7 +50,7 @@ public class Solution {
             } else {
                 right = mid;
             }
-        }
+        }   
 
         List<Integer> res = new ArrayList<>();
         for (int i = left; i < left + k; i++) {
