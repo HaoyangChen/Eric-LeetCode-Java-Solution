@@ -16,5 +16,6 @@ class Solution {
         return letters[lo % letters.length];
     }
 }
+
 // @lc code=end
 
