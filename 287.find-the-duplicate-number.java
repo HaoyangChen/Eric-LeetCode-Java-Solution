@@ -41,23 +41,40 @@
 // Time Complexity: O(n)
 // Space Complexity: O(1)
 
+// class Solution {
+//     public int findDuplicate(int[] nums) {
+//         int tortoise = nums[0];
+//         int hare = nums[0];
+//         do {
+//             tortoise = nums[tortoise];
+//             hare = nums[nums[hare]];
+//         } while (tortoise != hare);
+
+//         tortoise = nums[0];
+//         while (tortoise != hare) {
+//             tortoise = nums[tortoise];
+//             hare = nums[hare];
+//         }
+//         return hare;
+//     }
+// }
+
+
+// Method 4: Binary Search
 class Solution {
     public int findDuplicate(int[] nums) {
-        int tortoise = nums[0];
-        int hare = nums[0];
-        do {
-            tortoise = nums[tortoise];
-            hare = nums[nums[hare]];
-        } while (tortoise != hare);
-
-        tortoise = nums[0];
-        while (tortoise != hare) {
-            tortoise = nums[tortoise];
-            hare = nums[hare];
+        int low = 1, high = nums.length - 1;
+        while (low <= high) {
+            int mid = (int) (low + (high - low) * 0.5);
+            int cnt = 0;
+            for (int a : nums) {
+                if (a <= mid) ++cnt;
+            }
+            if (cnt <= mid) low = mid + 1;
+            else high = mid - 1;
         }
-        return hare;
+        return low;
     }
 }
-
 // @lc code=end
 
