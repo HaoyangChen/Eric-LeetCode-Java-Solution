@@ -6,7 +6,26 @@
 
 // @lc code=start
 
-// Method: Hashmap
+// Method 1: Without Space
+// Time complexity: O(n^2) We need to consider every subarray possible.
+// Space complexity: O(1). Constant space is used.
+
+// public class Solution {
+//     public int subarraySum(int[] nums, int k) {
+//         int count = 0;
+//         for (int start = 0; start < nums.length; start++) {
+//             int sum=0;
+//             for (int end = start; end < nums.length; end++) {
+//                 sum+=nums[end];
+//                 if (sum == k)
+//                     count++;
+//             }
+//         }
+//         return count;
+//     }
+// }
+
+// Method 2: Hashmap
 // Time Complexity: O(n). The entire nums array is traversed only once
 // Space Complexity: O(n). Hashmap map can contain up to n distinct entries in the worst case
 class Solution {
