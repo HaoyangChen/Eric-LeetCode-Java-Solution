@@ -124,49 +124,107 @@
 // Postorder DFS Method
 // Time Complexity: O(|E| + |V|) where |V| is the numebr of vertices and |E| is the number of dependencies
 // Space Complexity: O(|E| + |V|)
+// class Solution {
+//     public boolean canFinish(int numCourses, int[][] prerequisites) {
+//         HashMap<Integer, List<Integer>> courseDict = new HashMap<>();
+//         for (int[] relation: prerequisites) {
+//             if (courseDict.containsKey(relation[1])) {
+//                 courseDict.get(relation[1]).add(relation[0]);
+//             } else {
+//                 List<Integer> nextCourses = new LinkedList<>();
+//                 nextCourses.add(relation[0]);
+//                 courseDict.put(relation[1], nextCourses);
+//             }
+//         }
+
+//         boolean[] checked = new boolean[numCourses];
+//         boolean[] path = new boolean[numCourses];
+
+//         for (int currCourse = 0; currCourse < numCourses; currCourse++) {
+//             if (this.isCyclic(currCourse, courseDict, checked, path)) {
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+
+//     protected boolean isCyclic(int currCourse, HashMap<Integer, List<Integer>> courseDict, boolean[] checked, boolean[] path) {
+//         if (checked[currCourse]) {
+//             return false;
+//         }
+//         if (path[currCourse]) {
+//             return true;
+//         }
+//         if (!courseDict.containsKey(currCourse)) {
+//             return false;
+//         }
+//         path[currCourse] = true;
+//         boolean result = false;
+//         for (Integer child: courseDict.get(currCourse)) {
+//             result = this.isCyclic(child, courseDict, checked, path);
+//             if (result) break;
+//         }
+//         path[currCourse] = false;
+//         checked[currCourse] = true;
+//         return result;
+//     }
+// }
+
+
+// Topological Sort Method
+// Time Complexity: O(|E| + |V|) where |V| is the numebr of vertices and |E| is the number of dependencies
+// Space Complexity: O(|E| + |V|)
+class GNode {
+    public Integer indegrees = 0;
+    public List<Integer> outNodes = new LinkedList<Integer>();
+}
+
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        HashMap<Integer, List<Integer>> courseDict = new HashMap<>();
+        if (prerequisites.length == 0) return true;
+        HashMap<Integer, GNode> graph = new HashMap<>();
         for (int[] relation: prerequisites) {
-            if (courseDict.containsKey(relation[1])) {
-                courseDict.get(relation[1]).add(relation[0]);
-            } else {
-                List<Integer> nextCourses = new LinkedList<>();
-                nextCourses.add(relation[0]);
-                courseDict.put(relation[1], nextCourses);
-            }
+            GNode prevCourse = this.getCreateGNode(graph, relation[1]);
+            GNode nextCourse = this.getCreateGNode(graph, relation[0]);
+            prevCourse.outNodes.add(relation[0]);
+            nextCourse.indegrees += 1;
         }
 
-        boolean[] checked = new boolean[numCourses];
-        boolean[] path = new boolean[numCourses];
-
-        for (int currCourse = 0; currCourse < numCourses; currCourse++) {
-            if (this.isCyclic(currCourse, courseDict, checked, path)) {
-                return false;
+        int totalDeps = prerequisites.length;
+        LinkedList<Integer> nodepCourses = new LinkedList<Integer>();
+        for (Map.Entry<Integer, GNode> entry: graph.entrySet()) {
+            GNode node = entry.getValue();
+            if (node.indegrees == 0) {
+                nodepCourses.add(entry.getKey());
             }
+        }
+        int removedEdges = 0;
+        while (nodepCourses.size() > 0) {
+            Integer course = nodepCourses.pop();
+            for (Integer nextCourse: graph.get(course).outNodes) {
+                GNode childNode = graph.get(nextCourse);
+                childNode.indegrees -= 1;
+                removedEdges++;
+                if (childNode.indegrees == 0) {
+                    nodepCourses.add(nextCourse);
+                }
+            }
+        }
+        if (removedEdges != totalDeps) {
+            return false;
         }
         return true;
     }
 
-    protected boolean isCyclic(int currCourse, HashMap<Integer, List<Integer>> courseDict, boolean[] checked, boolean[] path) {
-        if (checked[currCourse]) {
-            return false;
+    protected GNode getCreateGNode(HashMap<Integer, GNode> graph, Integer course) {
+        GNode node = null;
+        if (graph.containsKey(course)) {
+            node = graph.get(course);
+        } else {
+            node = new GNode();
+            graph.put(course, node);
         }
-        if (path[currCourse]) {
-            return true;
-        }
-        if (!courseDict.containsKey(currCourse)) {
-            return false;
-        }
-        path[currCourse] = true;
-        boolean result = false;
-        for (Integer child: courseDict.get(currCourse)) {
-            result = this.isCyclic(child, courseDict, checked, path);
-            if (result) break;
-        }
-        path[currCourse] = false;
-        checked[currCourse] = true;
-        return result;
+        return node;
     }
 }
 
