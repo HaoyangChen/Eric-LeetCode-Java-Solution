@@ -6,6 +6,7 @@
 
 // @lc code=start
 
+// Approach 1: One Pass
 // Time Complexity: O(N), where N is a number of information to parse
 // Space Complexity: O(1) because the array direction contains only 4 elements
 class Solution {
