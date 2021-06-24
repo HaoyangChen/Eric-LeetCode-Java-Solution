@@ -42,26 +42,49 @@
 // Approach 2: Two pass algorithm
 // Time Complexity: O(L) - the algorithm makes two traversals of the list, first to calculate list length L and second to find the (L - n)th node. There are 2L - n operations and time complexity is O(L)
 // Space Complexity: O(1) - we only use constant extra space
+// class Solution {
+//     public ListNode removeNthFromEnd(ListNode head, int n) {
+//         ListNode dummy = new ListNode(0);
+//         dummy.next = head;
+//         int length = 0;
+//         ListNode first = head;
+        
+//         while (first != null) {
+//             length++;
+//             first = first.next;
+//         }
+//         length -= n;
+//         first = dummy;
+//         while (length > 0) {
+//             length--;
+//             first = first.next;
+//         }
+//         first.next = first.next.next;
+//         return dummy.next;
+//     }
+// }
+
+
+// Approach 3: One pass algorithm
+// Time Complexity: O(L) - The algorithm makes one traversal of the list of N nodes. Therefore time complexity is O(L)
+// Space Complexity: O(1) - We only use constant extra space
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        int length = 0;
-        ListNode first = head;
-        
+        ListNode first = dummy;
+        ListNode second = dummy;
+        for (int i = 1; i <= n + 1; i++) {
+            first = first.next;
+        }
         while (first != null) {
-            length++;
             first = first.next;
+            second = second.next;
         }
-        length -= n;
-        first = dummy;
-        while (length > 0) {
-            length--;
-            first = first.next;
-        }
-        first.next = first.next.next;
+        second.next = second.next.next;
         return dummy.next;
     }
 }
+
 // @lc code=end
 
