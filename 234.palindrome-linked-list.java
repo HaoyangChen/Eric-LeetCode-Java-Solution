@@ -102,6 +102,7 @@
 // }
 
 
+// Method 3: Reverse Second Half In-place
 // Time Complexity: O(n), where n is the number of nodes in the linked list. Finding the middle is O(n), reversing a list in place is O(n), and then comparing the 2 resulting linked list is also O(n)
 // Space Complexity: O(1) we are changing the next pointers for half of the nodes. This was all memory that had already been allocated, so we are not using any extra memory and therefore it is O(1)
 class Solution {
