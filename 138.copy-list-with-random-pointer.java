@@ -86,34 +86,71 @@ class Node {
 // Method 2: Iterative Apprach with O(N) Space
 // Time Complexity: O(N) because we make one pass over the original linked list
 // Space Complexity: O(N) as we have a dictionary containing mapping from old list nodes to new list nodes. Since there are N nodes, we have O(N) space complexity
+// class Solution {
+//     HashMap<Node, Node> visited = new HashMap<Node, Node>();
+//     public Node copyRandomList(Node head) {
+//         if (head == null) return null;
+//         Node oldNode = head;
+//         Node newNode = new Node(oldNode.val);
+//         this.visited.put(oldNode, newNode);
+
+//         while (oldNode != null) {
+//             newNode.random = this.getClonedNode(oldNode.random);
+//             newNode.next = this.getClonedNode(oldNode.next);
+
+//             oldNode = oldNode.next;
+//             newNode = newNode.next;
+//         }
+//         return this.visited.get(head);
+//     }
+
+//     public Node getClonedNode(Node node) {
+//         if (node != null) {
+//             if (this.visited.containsKey(node)) {
+//                 return this.visited.get(node);
+//             } else {
+//                 this.visited.put(node, new Node(node.val, null, null));
+//                 return this.visited.get(node);
+//             }
+//         }
+//         return null;
+//     }
+// }
+
+
+
+// Method 3: Iterative with O(1) Space
+// Time Complexity: O(N)
+// Space Complexity: O(1)
 class Solution {
-    HashMap<Node, Node> visited = new HashMap<Node, Node>();
     public Node copyRandomList(Node head) {
         if (head == null) return null;
-        Node oldNode = head;
-        Node newNode = new Node(oldNode.val);
-        this.visited.put(oldNode, newNode);
-
-        while (oldNode != null) {
-            newNode.random = this.getClonedNode(oldNode.random);
-            newNode.next = this.getClonedNode(oldNode.next);
-
-            oldNode = oldNode.next;
-            newNode = newNode.next;
+        Node pointer = head;
+        while (pointer != null) {
+            Node newNode = new Node(pointer.val);
+            // Inserting the cloned node just next to the original node.
+            newNode.next = pointer.next;
+            pointer.next = newNode;
+            pointer = newNode.next;
         }
-        return this.visited.get(head);
-    }
+        pointer = head;
 
-    public Node getClonedNode(Node node) {
-        if (node != null) {
-            if (this.visited.containsKey(node)) {
-                return this.visited.get(node);
-            } else {
-                this.visited.put(node, new Node(node.val, null, null));
-                return this.visited.get(node);
-            }
+        // link the random pointers of the new nodes created.
+        while (pointer != null) {
+            pointer.next.random = (pointer.random != null) ? pointer.random.next : null;
+            pointer = pointer.next.next;
         }
-        return null;
+
+        Node pointer_old_list = head;
+        Node pointer_new_list = head.next;
+        Node result = head.next;
+        while (pointer_old_list != null) {
+            pointer_old_list.next = pointer_old_list.next.next;
+            pointer_new_list.next = (pointer_new_list.next != null) ? pointer_new_list.next.next : null;
+            pointer_old_list = pointer_old_list.next;
+            pointer_new_list = pointer_new_list.next;
+        }
+        return result;
     }
 }
 // @lc code=end
