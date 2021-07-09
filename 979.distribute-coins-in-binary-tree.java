@@ -20,6 +20,10 @@
  *     }
  * }
  */
+
+ // Method: DFS
+ // Time Complexity: O(N) where N is the number of nodes in the tree
+ // Space Complexity: O(H) where H is the height of tree
 class Solution {
     int ans;
     public int distributeCoins(TreeNode root) {
