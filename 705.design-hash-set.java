@@ -100,9 +100,50 @@ class MyHashSet {
   }
 }
 
+public class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode(int x) {
+    val = x;
+  }
+}
+
+class BSTree {
+  TreeNode root = null;
+  
+  public TreeNode searchBST(TreeNode root, int val) {
+    if (root == null || val == root.val) return root;
+    return val < root.val ? searchBST(root.left, val) : searchBST(root.right, val);
+  }
+
+  public TreeNode insertIntoBST(TreeNode root, int val) {
+    
+  }
+}
+
 class Bucket() {
   private BSTree tree;
+
+  public Bucket() {
+    tree = new BSTree();
+  }
+
+  public void insert(Integer key) {
+    this.tree.root = this.tree.insertIntoBST(this.tree.root, key);
+  }
+
+  public void delete(Integer key) {
+    this.tree.root = this.tree.deleteNode(this.tree.root, key);
+  }
+
+  public boolean exists(Integer key) {
+    TreeNode node = this.tree.searchBST(this.tree.root, key);
+    return (node != null);
+  }
 }
+
 
 
 
