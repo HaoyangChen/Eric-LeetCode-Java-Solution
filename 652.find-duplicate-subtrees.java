@@ -44,7 +44,7 @@
 //     }
 // }
 
-// Method 2
+// Method 2： Hashmap
 class Solution {
     int t;
     Map<String, Integer> trees;
