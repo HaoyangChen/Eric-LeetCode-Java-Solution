@@ -5,6 +5,9 @@
  */
 
 // @lc code=start
+
+// Hash Set
+// Time Complexity: O(N^2) because we need to traverse every position in the board, and each of the four check steps is an O(1) operation
 class Solution {
     public boolean isValidSudoku(char[][] board) {
         int N = 9;
