@@ -5,6 +5,8 @@
  */
 
 // @lc code=start
+
+// Method HashMap + ArrayList
 class RandomizedSet {
     Map<Integer, Integer> dict;
     List<Integer> list;
