@@ -7,6 +7,8 @@
 // @lc code=start
 
 // Method: Two Pointers
+// Time Complexity: O(n^2)
+// Space Complexity: from \mathcal{O}(\log{n})O(logn) to \mathcal{O}(n)O(n), depending on the implementation of the sorting algorithm. For the purpose of complexity analysis, we ignore the memory required for the output.
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
