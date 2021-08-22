@@ -69,6 +69,10 @@
 //     }
 // }
 
+
+// Method 3: No sort
+// Time Complexity: O(n^2) - we have outer and inner loops, each going through n elements
+// Space Complexity: O(n) for the hashset/hashmap 
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Set<List<Integer>> res = new HashSet<>();
