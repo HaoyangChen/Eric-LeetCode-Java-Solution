@@ -6,6 +6,7 @@
 
 // @lc code=start
 
+// Method 1: Sort by row
 // Time Complexity: O(n) - where n == len(s)
 // Space Complexity: O(n)
 import java.util.*;
