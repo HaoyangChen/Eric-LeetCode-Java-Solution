@@ -15,6 +15,9 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
+ // Time Complexity: O(N) where N is the size of the original linked list
+ // Space Complexity: O(1) because no extra space is used as the algorithm only modifies/reararnges the nodes
 class Solution {
     public ListNode partition(ListNode head, int x) {
         ListNode smallDummy = new ListNode(-1);
