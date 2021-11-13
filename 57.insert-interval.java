@@ -30,8 +30,8 @@ class Solution {
 
         while (index < intervalLength) {
             interval = intervals[index++];
-            int end = interval[1];
-            if (result.getLast()[1] < end) {
+            int start = interval[0], end = interval[1];
+            if (result.getLast()[1] < start) {
                 result.add(interval);
             } else {
                 interval = result.removeLast();
