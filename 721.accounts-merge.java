@@ -7,6 +7,7 @@
 // @lc code=start
 class Solution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        HashSet<String> visited = new HashSet<>();
         
     }
 }
