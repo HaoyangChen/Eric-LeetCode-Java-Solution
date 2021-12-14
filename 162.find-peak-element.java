@@ -37,6 +37,8 @@
 // }
 
 // Iterative Binary Search
+// Time Complexity: O(logn) the search space is reduced in half at every step. Thus, the total search space will be consumed in log2(n) steps. n refers to the size of nums array
+// Space Complexity: O(1) constant extra space is used
 class Solution {
     public int findPeakElement(int[] nums) {
         int l = 0, r = nums.length - 1;
