@@ -27,6 +27,7 @@
 // Method 2: Categorize by Count
 // Time Complexity: O(NK), where N is the length of strs, and K is the maximum length of a string in strs. Counting each string is linear in the size of the string, and we count every string
 // Space Complexity: O(NK), the total information content stored in map
+import java.util.*;
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         if (strs.length == 0) return new ArrayList();
