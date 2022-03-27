@@ -7,6 +7,7 @@
 // @lc code=start
 
 // Shangan Solution
+import java.util.*;
 class Solution {
     List<List<Integer>> result;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
