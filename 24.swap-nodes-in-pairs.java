@@ -32,8 +32,6 @@
 //         return secondNode;
 //     }
 // }
-// @lc code=end
-
 
 // Time Complexity: O(N), where N is the size of the linked list
 // Space Complexity: O(1)
@@ -59,3 +57,4 @@ class Solution {
         return dummy.next;
     }
 }
+// @lc code=end
