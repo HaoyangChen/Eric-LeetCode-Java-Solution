@@ -29,26 +29,46 @@
 //     }
 // }
 
-class Solution {
-    List<List<Integer>> output = new ArrayList();
-    int n, k;
-    public List<List<Integer>> subsets(int[] nums) {
-        n = nums.length;
-        for (k = 0; k < n + 1; k++) {
-            backtrack(0, new ArrayList<Integer>(), nums);
-        }
-        return output;
-    }
+// class Solution {
+//     List<List<Integer>> output = new ArrayList();
+//     int n, k;
+//     public List<List<Integer>> subsets(int[] nums) {
+//         n = nums.length;
+//         for (k = 0; k < n + 1; k++) {
+//             backtrack(0, new ArrayList<Integer>(), nums);
+//         }
+//         return output;
+//     }
 
-    private void backtrack(int first, ArrayList<Integer> curr, int[] nums) {
-        if (curr.size() == k) {
-            output.add(new ArrayList(curr));
-            return;
-        }
-        for (int i = first; i < n; i++) {
-            curr.add(nums[i]);
-            backtrack(i + 1, curr, nums);
-            curr.remove(curr.size() - 1);
+//     private void backtrack(int first, ArrayList<Integer> curr, int[] nums) {
+//         if (curr.size() == k) {
+//             output.add(new ArrayList(curr));
+//             return;
+//         }
+//         for (int i = first; i < n; i++) {
+//             curr.add(nums[i]);
+//             backtrack(i + 1, curr, nums);
+//             curr.remove(curr.size() - 1);
+//         }
+//     }
+// }
+
+
+class Solution {
+    List<List<Integer>> result = new LinkedList<>();
+    LinkedList<Integer> track = new LinkedList<>();
+    
+    public List<List<Integer>> subsets(int[] nums) {
+        backtrack(nums, 0);
+        return result;
+    }
+    
+    private void backtrack(int[] nums, int start) {
+        result.add(new LinkedList<>(track));
+        for (int i = start; i < nums.length; i++) {
+            track.addLast(nums[i]);
+            backtrack(nums, i + 1);
+            track.removeLast();
         }
     }
 }
