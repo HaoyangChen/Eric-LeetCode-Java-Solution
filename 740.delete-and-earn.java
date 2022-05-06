@@ -34,23 +34,45 @@ import java.util.*;
 //                  Since we need to iterate through nums once, which costs O(N) time and then populate maxPoints of length k + 1, which costs O(k) time
 // Space Complexity: O(N + k) the extra space used is the hash table points and dp array maxPoints. The size of maxPoints is k + 1 and the size of the hash table
 //                   is equal to the number of unique elements in nums, which in the worst case can all be unique and take O(N) space. Therefore, the final space complexity is O(N + k)
+// class Solution {
+//     public int deleteAndEarn(int[] nums) {
+//         HashMap<Integer, Integer> points = new HashMap<>();
+//         int maxNumber = 0;
+        
+//         for (int num: nums) {
+//             points.put(num, points.getOrDefault(num, 0) + num);
+//             maxNumber = Math.max(maxNumber, num);
+//         }
+
+//         int[] maxPoints = new int[maxNumber + 1];
+//         maxPoints[1] = points.getOrDefault(1, 0);
+//         for (int num = 2; num < maxPoints.length; num++) {
+//             int gain = points.getOrDefault(num, 0);
+//             maxPoints[num] = Math.max(maxPoints[num - 1], maxPoints[num - 2] + gain);
+//         }
+//         return maxPoints[maxNumber];
+//     }
+// }
+
+
+// Method 3: Optimized DP
+// Time Complexity: O(N + k)
+// Space Complexity: O(N)
 class Solution {
     public int deleteAndEarn(int[] nums) {
-        HashMap<Integer, Integer> points = new HashMap<>();
         int maxNumber = 0;
-        
+        HashMap<Integer, Integer> points = new HashMap<>();
         for (int num: nums) {
             points.put(num, points.getOrDefault(num, 0) + num);
-            maxNumber = Math.max(maxNumber, num);
+            maxNumber = Math.max(num, maxNumber);
         }
-
-        int[] maxPoints = new int[maxNumber + 1];
-        maxPoints[1] = points.getOrDefault(1, 0);
-        for (int num = 2; num < maxPoints.length; num++) {
-            int gain = points.getOrDefault(num, 0);
-            maxPoints[num] = Math.max(maxPoints[num - 1], maxPoints[num - 2] + gain);
+        int twoBack = 0, oneBack = points.getOrDefault(1, 0);
+        for (int num = 2; num <= maxNumber; num++) {
+            int temp = oneBack;
+            oneBack = Math.max(oneBack, twoBack + points.getOrDefault(num, 0));
+            twoBack = temp;
         }
-        return maxPoints[maxNumber];
+        return oneBack;
     }
 }
 // @lc code=end
