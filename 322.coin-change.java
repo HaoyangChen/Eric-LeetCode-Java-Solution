@@ -9,27 +9,53 @@
 // Method: Dynamic Programming - Top Down
 // Time Complexity: O(S * n) - where S is the amount, n is denomination amount. In the worst case, the recursive tree of the algorithm has height of S and the algorithm solves only S subproblems because it catches precalculated solutions in a table. Each subproblem is computed with n iterations, one by coin denomination. Therefore there is O(S * n) time complexity.
 // Space Compexity: O(S) - where S is the amount to change. We use extra space for the memorization table. 
-class Solution {
-    public int coinChange(int[] coins, int amount) {
-        if (amount < 1) return 0;
-        return coinChange(coins, amount, new int [amount]);
-    }
+// class Solution {
+//     public int coinChange(int[] coins, int amount) {
+//         if (amount < 1) return 0;
+//         return coinChange(coins, amount, new int [amount]);
+//     }
 
-    private int coinChange(int[] coins, int rem, int[] count) {
-        if (rem < 0) return -1;
-        if (rem == 0) return 0;
-        if (count[rem - 1] != 0) {
-            return count[rem - 1];
-        }
-        int min = Integer.MAX_VALUE;
+//     private int coinChange(int[] coins, int rem, int[] count) {
+//         if (rem < 0) return -1;
+//         if (rem == 0) return 0;
+//         if (count[rem - 1] != 0) {
+//             return count[rem - 1];
+//         }
+//         int min = Integer.MAX_VALUE;
+//         for (int coin: coins) {
+//             int res = coinChange(coins, rem - coin, count);
+//             if (res >= 0 && res < min) {
+//                 min = 1 + res;
+//             }
+//         }
+//         count[rem - 1] = (min == Integer.MAX_VALUE) ? -1 : min;
+//         return count[rem - 1];
+//     }
+// }
+
+
+// Method 2: Top Down Approach
+class Solution {
+    private int[] memo;
+    public int coinChange(int[] coins, int amount) {
+        memo = new int[amount + 1];
+        Arrays.fill(memo, -666);
+        return dp(coins, amount);
+    }
+    
+    private int dp(int[] coins, int amount) {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        if (memo[amount] != -666) return memo[amount];
+        
+        int result = Integer.MAX_VALUE;
         for (int coin: coins) {
-            int res = coinChange(coins, rem - coin, count);
-            if (res >= 0 && res < min) {
-                min = 1 + res;
-            }
+            int subProblem = dp(coins, amount - coin);
+            if (subProblem == -1) continue;
+            result = Math.min(result, subProblem + 1);
         }
-        count[rem - 1] = (min == Integer.MAX_VALUE) ? -1 : min;
-        return count[rem - 1];
+        memo[amount] = (result == Integer.MAX_VALUE) ? -1 : result;
+        return memo[amount];
     }
 }
 // @lc code=end
