@@ -8,14 +8,35 @@
 
 import java.util.*;
 
-public class Solution {
-    public int calculate(int[][] grid, int i, int j) {
-        if (i == grid.length || j == grid[0].length) return Integer.MAX_VALUE;
-        if (i == grid.length - 1 && j == grid[0].length - 1) return grid[i][j];
-        return grid[i][j] + Math.min(calculate(grid, i + 1, j), calculate(grid, i, j + 1));
-    }
+// public class Solution {
+//     public int calculate(int[][] grid, int i, int j) {
+//         if (i == grid.length || j == grid[0].length) return Integer.MAX_VALUE;
+//         if (i == grid.length - 1 && j == grid[0].length - 1) return grid[i][j];
+//         return grid[i][j] + Math.min(calculate(grid, i + 1, j), calculate(grid, i, j + 1));
+//     }
+//     public int minPathSum(int[][] grid) {
+//         return calculate(grid, 0, 0);
+//     }
+// }
+
+// Method 1: Recursion with Memorization
+class Solution {
+    int[][] memo;
     public int minPathSum(int[][] grid) {
-        return calculate(grid, 0, 0);
+        int m = grid.length, n = grid[0].length;
+        memo = new int[m][n];
+        for (int[] row: memo) {
+            Arrays.fill(row, -1);
+        }
+        return dp(grid, m - 1, n - 1);
+    }
+    
+    private int dp(int[][] grid, int i, int j) {
+        if (i == 0 && j == 0) return grid[0][0];
+        if (i < 0 || j < 0) return Integer.MAX_VALUE;
+        if (memo[i][j] != -1) return memo[i][j];
+        memo[i][j] = Math.min(dp(grid, i - 1, j), dp(grid, i, j - 1)) + grid[i][j];
+        return memo[i][j];
     }
 }
 // @lc code=end
