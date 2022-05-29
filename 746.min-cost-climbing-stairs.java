@@ -43,5 +43,7 @@ class Solution {
         return minimumCost[minimumCost.length - 1];
     }
 }
+
+
 // @lc code=end
 
