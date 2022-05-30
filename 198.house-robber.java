@@ -51,16 +51,16 @@
 
 // Continued Another Way of Implementing DP
 // Time Complexity and Space Complexity both O(N)
-class Solution {
-    public int rob(int[] nums) {
-        int n = nums.length;
-        int[] dp = new int[n + 2];
-        for (int i = n - 1; i >= 0; i--) {
-            dp[i] = Math.max(dp[i + 1], dp[i + 2] + nums[i]);
-        }
-        return dp[0];
-    }
-}
+// class Solution {
+//     public int rob(int[] nums) {
+//         int n = nums.length;
+//         int[] dp = new int[n + 2];
+//         for (int i = n - 1; i >= 0; i--) {
+//             dp[i] = Math.max(dp[i + 1], dp[i + 2] + nums[i]);
+//         }
+//         return dp[0];
+//     }
+// }
 
 // Optimized DP
 // Time Complexity: O(N) since we have a loop from n - 2 to 0, and we use the precalculated values from the dp table to calculate the current value in the table
@@ -79,5 +79,19 @@ class Solution {
 //         return robNext;
 //     }
 // }
+
+// Continued Optimized DP with O(1) space complexity
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int dpNext = 0, dpNextNext = 0, dpCurrent = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            dpCurrent = Math.max(dpNext, nums[i] + dpNextNext);
+            dpNextNext = dpNext;
+            dpNext = dpCurrent;
+        }
+        return dpCurrent;
+    }
+}
 // @lc code=end
 
