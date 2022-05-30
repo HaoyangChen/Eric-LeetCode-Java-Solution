@@ -49,22 +49,35 @@
 //     }
 // }
 
-// Optimized DP
-// Time Complexity: O(N) since we have a loop from n - 2 to 0, and we use the precalculated values from the dp table to calculate the current value in the table
-// Space Complexity: O(1) since we are not using a table to store the values and instead we are using two variables to calculate the result 
+// Continued Another Way of Implementing DP
+// Time Complexity and Space Complexity both O(N)
 class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
-        if (n == 0) return 0;
-        int robNextPlusOne = 0;
-        int robNext = nums[n - 1];
-        for (int i = n - 2; i >= 0; i--) {
-            int current = Math.max(robNextPlusOne + nums[i], robNext);
-            robNextPlusOne = robNext;
-            robNext = current;
+        int[] dp = new int[n + 2];
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i] = Math.max(dp[i + 1], dp[i + 2] + nums[i]);
         }
-        return robNext;
+        return dp[0];
     }
 }
+
+// Optimized DP
+// Time Complexity: O(N) since we have a loop from n - 2 to 0, and we use the precalculated values from the dp table to calculate the current value in the table
+// Space Complexity: O(1) since we are not using a table to store the values and instead we are using two variables to calculate the result 
+// class Solution {
+//     public int rob(int[] nums) {
+//         int n = nums.length;
+//         if (n == 0) return 0;
+//         int robNextPlusOne = 0;
+//         int robNext = nums[n - 1];
+//         for (int i = n - 2; i >= 0; i--) {
+//             int current = Math.max(robNextPlusOne + nums[i], robNext);
+//             robNextPlusOne = robNext;
+//             robNext = current;
+//         }
+//         return robNext;
+//     }
+// }
 // @lc code=end
 
